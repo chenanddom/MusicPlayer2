@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">MusicPlayer</string>
+    <string name="welcome_tips">欢迎使用</string>
+    <string name="changeColor">变色模式</string>
+    <string name="nightMode">夜间模式</string>
+    <string name="privateSpace">私人空间</string>
+    <string name="searchMusics">搜索本地歌曲</string>
+    <string name="musicResource">资源仓库</string>
+    <string name="musicSetting">设置</string>
+    <string name="musicExit">退出</string>
+
+</resources>
