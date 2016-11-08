@@ -5,11 +5,18 @@ package com.dom.player.mconst;
  */
 
 public class APPConst {
-    public static class PlayerMSG{
-    public static final int PLAYMSG=11;
-     public static final int PLAYPAUSE=10;
-        public static final int PLAYESTOP=00;
+    public static class PlayerMSG {
+        public static final int PLAYMSG = 11;
+        public static final int PLAYPAUSE = 10;
+        public static final int PLAYESTOP = 00;
+        public static final int PLAYCONTINUEMSG =111;
+        public static final int PROGRESSCHANGE= 110;
+        public static final int PLAYINGMSG=100;
+        public static final String MUSICDURATION = "com.dom.broadcat";
 
+        public static final String UPDATE_ACTION = "com.dom.action.UPDATE_ACTION";
+        public static final String CTL_ACTION = "com.dom.action.CTL_ACTION";
+        public static final String MUSIC_CURRENT = "com.dom.action.MUSIC_CURRENT";
+        public static final String MUSIC_DURATION = "com.dom.action.MUSIC_DURATION";
     }
-
 }

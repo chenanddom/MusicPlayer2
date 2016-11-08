@@ -6,7 +6,7 @@ package com.dom.player.bean;
 
 public class Song {
 
-    
+
     private long id;
     private String title;
     private String artist;

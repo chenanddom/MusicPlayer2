@@ -12,5 +12,5 @@
     android:layout_height="match_parent">
     <include android:id="@+id/menu" layout="@layout/left_menu"/>
     <include android:id="@+id/content" layout="@layout/content"/>
-    </com.dom.player.view.MSlidingMenu>
+</com.dom.player.view.MSlidingMenu>
 </RelativeLayout>

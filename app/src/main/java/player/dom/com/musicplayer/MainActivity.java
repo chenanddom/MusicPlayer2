@@ -1,6 +1,7 @@
 package player.dom.com.musicplayer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.dom.palyer.base.BaseActivity;
 import com.dom.player.utils.LogUtil;
+import com.dom.player.utils.MediaUtil;
 import com.dom.player.view.MSlidingMenu;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -64,6 +66,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.changeColor:
                 LogUtil.showLog("changeColor",""+v.getId());
+                startActivity(new Intent(MainActivity.this,MusicsList.class));
+                overridePendingTransition(R.anim.tran_in,R.anim.tran_out);
                 break;
             case R.id.nightmode:
 
