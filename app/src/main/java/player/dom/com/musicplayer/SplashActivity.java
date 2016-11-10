@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -82,5 +83,10 @@ public class SplashActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         handler.sendEmptyMessage(0x110);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -1,4 +1,4 @@
-package com.dom;
+package com.dom.player.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;

@@ -19,21 +19,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal" >
-            <TextView
-                android:id="@+id/weather_info"
+            android:orientation="horizontal">
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-                android:textColor="@android:color/white"
-                android:text="@string/welcome_tips"
-                android:textSize="25sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/mMusic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@mipmap/icon_musicstore"
+                    android:layout_marginLeft="30dp"/>
+                <RadioButton
+                    android:id="@+id/mAmusement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@mipmap/icon_amusement"
+                    android:layout_marginLeft="5dp"/>
+                <RadioButton
+                    android:id="@+id/mVedio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@mipmap/icon_vedio"
+                    android:layout_marginLeft="5dp"/>
+            </RadioGroup>
         </LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -41,6 +56,4 @@
         android:background="@android:color/white"
         android:layout_weight="9.9" >
     </FrameLayout>
-
-
 </LinearLayout>

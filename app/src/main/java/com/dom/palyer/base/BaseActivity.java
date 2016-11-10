@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import player.dom.com.musicplayer.MainActivity;
 import player.dom.com.musicplayer.SplashActivity;
@@ -14,7 +15,7 @@ import player.dom.com.musicplayer.SplashActivity;
  * Created by chendom on 16-11-6.
  */
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity implements View.OnClickListener{
 protected Handler handler = new Handler(){
     @Override
     public void handleMessage(Message msg) {

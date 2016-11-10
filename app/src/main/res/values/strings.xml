@@ -9,5 +9,8 @@
     <string name="musicResource">资源仓库</string>
     <string name="musicSetting">设置</string>
     <string name="musicExit">退出</string>
-
+    <string name="localMusic">本地音乐</string>
+    <string name="musicHistory">最近听过</string>
+    <string name="musicUpload">上传到云</string>
+    <string name="musicPrivate">私密仓库</string>
 </resources>

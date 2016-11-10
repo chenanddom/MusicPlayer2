@@ -19,4 +19,8 @@ public class APPConst {
         public static final String MUSIC_CURRENT = "com.dom.action.MUSIC_CURRENT";
         public static final String MUSIC_DURATION = "com.dom.action.MUSIC_DURATION";
     }
+    public static class AppApi{
+        public static final String APIKEY="f9a6dc0392b9c598afcf80c60048f8ef";
+        public static final String path="http://api.tianapi.com/huabian/?key="+APIKEY+"&num=10";
+    }
 }
