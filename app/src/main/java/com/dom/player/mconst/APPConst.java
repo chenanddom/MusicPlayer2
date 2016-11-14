@@ -12,7 +12,7 @@ public class APPConst {
         public static final int PLAYCONTINUEMSG =111;
         public static final int PROGRESSCHANGE= 110;
         public static final int PLAYINGMSG=100;
-        public static final String MUSICDURATION = "com.dom.broadcat";
+
 
         public static final String UPDATE_ACTION = "com.dom.action.UPDATE_ACTION";
         public static final String CTL_ACTION = "com.dom.action.CTL_ACTION";

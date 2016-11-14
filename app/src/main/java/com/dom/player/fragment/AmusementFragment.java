@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import player.dom.com.musicplayer.R;
+import player.dom.com.musicplayer.ScanActivity;
 
 /**
  * Created by chendom on 16-11-9.
@@ -141,14 +142,10 @@ public class AmusementFragment extends BaseFragment implements ListView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent();
-
-
-
-
-
-
-
+        Intent intent = new Intent(getActivity(), ScanActivity.class);
+        intent.putExtra("title",list.get(position).getTitle());
+        intent.putExtra("url",list.get(position).getUrl());
+        startActivity(intent);
     }
     public void getData(){
 

@@ -21,7 +21,8 @@
 
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".MusicsList"></activity>
-
+        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".PlayerActivity"></activity>
 
         <service android:name="com.dom.player.service.MusicService">
             <intent-filter>

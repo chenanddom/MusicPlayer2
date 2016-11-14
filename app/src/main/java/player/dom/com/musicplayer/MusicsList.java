@@ -1,5 +1,6 @@
 package player.dom.com.musicplayer;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -55,6 +56,10 @@ private ListView songList;
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        Intent intent=new Intent(MusicsList.this,PlayerActivity.class);
+        intent.putExtra("position",position);
+        startActivity(intent);
+        overridePendingTransition(R.anim.tran_in,R.anim.tran_out);
     }
 
     @Override

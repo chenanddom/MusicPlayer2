@@ -21,78 +21,82 @@ import java.util.ArrayList;
  */
 
 public class MusicService extends Service {
-    private MediaPlayer mediaPlayer;//the object of music player
-    private String path;//music resource path
+    private MediaPlayer mediaPlayer;
+    private String path;
     private int msg;
-    private boolean isPause;//pause this music player
+    private boolean isPause;
     private int mCurrentPosition;
     private int currentTime;
     private int duration;
     private ArrayList<Song> mp3Infos;
-    //-----------------------------------------------------------------------
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 1:
-                currentTime = mediaPlayer.getCurrentPosition();//get the position of position
-                    Intent intent = new Intent();
-                    intent.setAction(APPConst.PlayerMSG.MUSIC_CURRENT);
-                    intent.putExtra("currentTime",currentTime);
-                    sendBroadcast(intent);
-                    handler.sendEmptyMessageDelayed(1,1000);
-                    break;
-                default:
-                    break;
-            }
+    public static final String UPDATE_ACTION = "com.lzw.action.UPDATE_ACTION";
+    public static final String CTL_ACTION = "com.lzw.action.CTL_ACTION";
+    public static final String MUSIC_CURRENT = "com.lzw.action.MUSIC_CURRENT";
+    public static final String MUSIC_DURATION = "com.lzw.action.MUSIC_DURATION";
 
-        }
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 1) {
+                if(mediaPlayer != null) {
+                    currentTime = mediaPlayer.getCurrentPosition(); // 获取当前音乐播放的位置
+                    Intent intent = new Intent();
+                    intent.setAction(MUSIC_CURRENT);
+                    intent.putExtra("currentTime", currentTime);
+                    sendBroadcast(intent); // 给PlayerActivity发送广播
+                    handler.sendEmptyMessageDelayed(1, 1000);
+                }
+            }
+        };
     };
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        // TODO Auto-generated method stub
         return null;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtil.showLog("service","service create");
+        Log.d("service", "service created");
         mediaPlayer = new MediaPlayer();
         mp3Infos = MediaUtil.getAllSongs(MusicService.this);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
             @Override
             public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
                 mCurrentPosition++;
-                LogUtil.showLog("Current",mCurrentPosition+"");
-                if (mCurrentPosition<=mp3Infos.size()-1){
-                    Intent sendIntent = new Intent(APPConst.PlayerMSG.UPDATE_ACTION);
-                    sendIntent.putExtra("current",mCurrentPosition);
+                Log.v("po", mCurrentPosition+"");
+                if (mCurrentPosition <= mp3Infos.size() - 1) {
+                    Intent sendIntent = new Intent(UPDATE_ACTION);
+                    sendIntent.putExtra("current", mCurrentPosition);
+
                     sendBroadcast(sendIntent);
-                    path=mp3Infos.get(mCurrentPosition).getUrl();
+                    path = mp3Infos.get(mCurrentPosition).getUrl();
                     play(0);
                 }else {
                     mediaPlayer.seekTo(0);
-                    mCurrentPosition=0;
-                    Intent sendIntent = new Intent(APPConst.PlayerMSG.UPDATE_ACTION);
-                    sendIntent.putExtra("current",mCurrentPosition);
+                    mCurrentPosition = 0;
+                    Intent sendIntent = new Intent(UPDATE_ACTION);
+                    sendIntent.putExtra("current", mCurrentPosition);
+
                     sendBroadcast(sendIntent);
                 }
 
+
+
             }
         });
-
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null) {
+    public void onStart(Intent intent, int startId) {
+        if(intent==null){
             stopSelf();
-        } else {
+        }else{
             path = intent.getStringExtra("url");
             msg = intent.getIntExtra("MSG", 0);
-            mCurrentPosition = intent.getIntExtra("position", -1);
+            mCurrentPosition=intent.getIntExtra("position",-1);
             if (msg == APPConst.PlayerMSG.PLAYMSG) {
                 play(0);
             } else if (msg == APPConst.PlayerMSG.PLAYPAUSE) {
@@ -107,17 +111,12 @@ public class MusicService extends Service {
             } else if (msg == APPConst.PlayerMSG.PLAYINGMSG) {
                 handler.sendEmptyMessage(1);
             }
-
+            super.onStart(intent, startId);
         }
-        return super.onStartCommand(intent,flags,startId);
     }
 
-    /**
-     * play music
-     *
-     * @param position
-     */
-    private void play(int position) {
+
+    private void play(int currentTime) {
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(path);
@@ -129,9 +128,7 @@ public class MusicService extends Service {
         }
     }
 
-    /**
-     * pause the playing music
-     */
+
     private void pause() {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
@@ -139,9 +136,14 @@ public class MusicService extends Service {
         }
     }
 
-    /**
-     * stop the playing music
-     */
+    private void resume() {
+        if (isPause) {
+            mediaPlayer.start();
+            isPause = false;
+        }
+    }
+
+
     private void stop() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -151,20 +153,6 @@ public class MusicService extends Service {
                 e.printStackTrace();
             }
         }
-    }
-    private void resume() {
-        if (isPause) {
-            mediaPlayer.start();
-            isPause = false;
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mediaPlayer != null)
-            mediaPlayer.stop();
-        mediaPlayer.release();
-        mediaPlayer = null;
     }
 
     private final class PreparedListener implements MediaPlayer.OnPreparedListener {
@@ -181,12 +169,20 @@ public class MusicService extends Service {
                 mediaPlayer.seekTo(currentTime);
             }
             Intent intent = new Intent();
-            intent.setAction(APPConst.PlayerMSG.MUSICDURATION);
+            intent.setAction(MUSIC_DURATION);
             duration = mediaPlayer.getDuration();
             intent.putExtra("duration", duration);
             sendBroadcast(intent);
         }
     }
 
+    @Override
+    public void onDestroy() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
 }
